@@ -2,6 +2,7 @@ import { useState } from 'react';
 import React from 'react';
 import './App.css';
 import './Fonts.css';
+import { useSpring , animated } from '@react-spring/web'
 
 
 function Box({value,onboxclick}){
@@ -13,6 +14,10 @@ function Box({value,onboxclick}){
   // }
 
   return (
+
+    
+
+
     <button className='box' onClick={onboxclick}>
        <span
         style={{
@@ -23,6 +28,7 @@ function Box({value,onboxclick}){
         {value}
       </span>
      </button>
+
   );
 }
 
@@ -40,7 +46,9 @@ export default function Board(){
   if (winner) {
     status = "Winner: " + winner;
   } else {
-    status = "Next player: " + (isxnext ? "X" : "O");
+    const isBoardFull = squares.every((square) => square !== null);
+    status = isBoardFull ? "Game Over" : "Next player: " + (isxnext ? "X" : "O");
+
   }
 
 
@@ -99,6 +107,9 @@ export default function Board(){
 
     <div className="status">{status}</div>
 
+
+    {/* {winner && <WinningLine winner={winner} squares={squares} />} */}
+
    
 
 
@@ -132,6 +143,32 @@ function calculateWinner(squares) {
       return squares[a];
     }
   }
+
+  // for (const line of lines) {
+  //   const [a, b, c] = line;
+  //   if (winner === squares[a] && winner === squares[b] && winner === squares[c]) {
+  //     // Calculate the position and angle of the line
+  //     const position = a * 33.33 + 16.67;
+  //     const angle = a === 4 ? 0 : a % 2 === 0 ? 90 : 45;
+
+  // return (
+  //   <animated.div
+  //     className="winning-line"
+  //     style={{
+  //       transform: lineStyles.scaleX.interpolate(
+  //         (scaleX) => `rotate(${angle}deg) scaleX(${scaleX})`
+  //       ),
+  //       top: `${position}%`,
+  //     }}
+  //   ></animated.div>
+  // );
+  //   }
+  // }
+  // if (squares.every((square) => square !== null)) {
+  //   return "Draw";
+  // }
+
+
   return null;
 }
 
